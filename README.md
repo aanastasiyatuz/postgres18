@@ -1,3 +1,4 @@
+# Slash commands
 * `\с` - показывает в какой бд мы находимся и через какого юзера
 
 * `\с name_of_db` - переключается к этой бд
@@ -11,6 +12,7 @@
 * `\q` - выход
 
 
+# Создание бд и таблиц
 ```sql
 CREATE DATABASE name_of_db; 
 -- создает базу данных
@@ -24,13 +26,13 @@ CREATE TABLE name_of_table (
 ); 
 -- создает таблицу с полями
 ```
-
+# Заполнение таблиц
 ```sql
 INSERT INTO name_of_table (name_of_column1, name_of_column2) 
 VALUES (val1, val2);
 -- добавляет запись в таблицу
 ```
-
+# вывод данных из таблицы
 ```sql
 SELECT * FROM name_of_table; 
 -- достает все поля и записи из таблицы
@@ -39,7 +41,8 @@ SELECT name_of_column1, name_of_column2 FROM name_of_table;
 -- достает только указанные столбцы из таблицы
 ```
 
-
+# связи
+## pk fk
 > primary key (pk) - первичный ключ
 > это ограничение, которое мы указываем на те поля,которые должны быть уникальными для того, чтобы потом их использовать в связях (например id)
 
@@ -61,6 +64,7 @@ CREATE TABLE book (
 )
 ```
 
+## joins
 > JOIN - инструкция, которая позволяет в запросах SELECT брать данные из нескольких таблиц
 
 > INNER JOIN (JOIN) - когда достаются только те записи, у которых есть полная связь
@@ -75,4 +79,14 @@ CREATE TABLE book (
 SELECT author.first_name, book.title 
 FROM author
 JOIN book ON author.id = book.author_id
+```
+
+# Import export данных
+write from file to db
+```bash
+psql db_name < file.sql
+```
+write from db to file
+```bash
+pg_dump db_name > file.sql
 ```
