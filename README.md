@@ -54,14 +54,94 @@ CREATE TABLE author (
     id serial primary key,
     first_name varchar(50),
     last_name varchar(50)
-)
+);
 
 CREATE TABLE book (
     id serial,
     title varchar(100),
     published year,
     author_id int foreign key referenses author (id)
-)
+);
+```
+## Виды связей (теория)
+> One to one - (один к одному) 
+Например:
+
+* Один автор - одна биография
+* Один флаг - одна страна
+* Один человек - одно сердце
+
+> One to many - (один ко многим)
+Например:
+
+* Один человек - много клеток, но у одной клетки только один человек
+* Одни родители - много детей, но у одного ребенка только одни родители
+* Один аккаунт - много постов, но у одного поста только один автор (аккаунт)
+* Один makers - много maker'ов, но у одного maker'а только один makers
+
+> Many to many - (многие ко многим)
+Например:
+
+* у человека много друзей и у одного друга много других друзей
+* у доктора много пациентов и у пациента много докторов
+* у пользователя много социальных сетей и у одной соцсети много пользователей
+
+
+## Виды связей (практика)
+### One to one
+```sql
+CREATE TABLE flag (
+    id serial primary key,
+    photo text
+);
+
+CREATE TABLE country (
+    id serial primary key,
+    title varchar(50),
+    gimn text,
+    flag_id int unique
+    foreign key fk_country_flag references flag(id)
+);
+```
+### One to many
+```sql
+CREATE TABLE account (
+    id serial primary key,
+    nickname varchar(25) unique,
+    u_password varchar(255) 
+);
+
+CREATE TABLE post (
+    id serial primary key,
+    title varchar(100),
+    body text,
+    photo text,
+    account_id int 
+    foreign key fk_acc_post references account(id) 
+);
+```
+
+### Many to many
+```sql
+CREATE TABLE doctor (
+    id serial primary key,
+    first_name varchar(25),
+    last_name varchar(50)
+);
+
+CREATE TABLE patient (
+    id serial primary key,
+    first_name varchar(25),
+    last_name varchar(50)
+);
+
+CREATE TABLE doctor_patient (
+    doctor_id int
+    foreign key fk_doctor references doctor(id),
+
+    patient_id int
+    foreign key fk_patient references patient(id)
+);
 ```
 
 ## joins
@@ -78,7 +158,7 @@ CREATE TABLE book (
 ```sql
 SELECT author.first_name, book.title 
 FROM author
-JOIN book ON author.id = book.author_id
+JOIN book ON author.id = book.author_id;
 ```
 
 # Import export данных
