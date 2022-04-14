@@ -146,7 +146,8 @@ CREATE TABLE doctor_patient (
     constraint fk_doctor
     foreign key (doctor_id) references doctor(id),
 
-    constraint foreign key (patient_id) references patient(id)
+    constraint fk_patient
+    foreign key (patient_id) references patient(id)
 );
 ```
 
